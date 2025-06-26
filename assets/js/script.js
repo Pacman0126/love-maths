@@ -32,14 +32,15 @@ function runGame(gameType) {
     document.getElementById("answer-box").value = "";
     document.getElementById("answer-box").focus();
     //create two random numbers between 1 and 25
-    let num = [];
+
     if (gameType !== "division") {
         let num1 = Math.floor(Math.random() * 25) + 1;
         let num2 = Math.floor(Math.random() * 25) + 1;
+        let num = [];
     } else {
-        let endResult = Math.floor(Math.random() * 225) + 1;
-        let factors = isNumberPrime(endResult);
-        while (factors[0] === true) {
+        var endResult = Math.floor(Math.random() * 225) + 1;
+        var factors = isNumberPrime(endResult);
+        while (factors[0] === true) {  //if factor array at index = 0 says number is prime, try again.
             endResult = Math.floor(Math.random() * 225) + 1;
             factors = isNumberPrime(endResult);
 
@@ -48,23 +49,17 @@ function runGame(gameType) {
             }
         }
 
-        if (factors.length === 2) {
+        if (factors.length === 2) { //not prime, but has only factor. 
             num1 = factors[1];
-            num2 = endResult / num1;
+            num = endResult / num1;
         } else {
-            let randomIndex = Math.round(Math.random() * factors.length - 0) + 1;
-            num1 = factors[randomIndex];
+            let randomIndex = Math.floor(Math.random() * factors.length - 0) + 1;
+            num1 = factors[randomIndex]; //not prime, has several factors. randomly select one and continue
             num2 = endResult / num1;
-            let randomOperands = [num1, num2];
-            randomIndex = Math.round(Math.random() ) + 0;
+            let randomOperands = [num1, num2]; //out of the two factors, pick one randomly and continue.
+            randomIndex = Math.round(Math.random()) + 0;
             num = randomOperands[randomIndex];
         }
-
-        // factors.splice(randomIndex, 1);
-
-        //  randomIndex = Math.random() * factors.length + 1;
-        // num2 = factors[randomIndex];
-        // factors.splice(randomIndex, 1);
 
     }
 
@@ -86,7 +81,13 @@ function runGame(gameType) {
     }
 
 }
-
+/**
+ * Takes a random number between 1 and 25 and runs a numerical test for primes 
+ * called 'Sieve of Eratosthenes'. Runs a loop from 2 to sqrt of random number.
+ * The modulo of each is checked for a remainder of 0. If modulo = 0, adds it to
+ * an array. The first element of array in set to true/false accordingly. The array
+ * of results are returned for further processing.
+ */
 function isNumberPrime(randomNumber) {
 
     let factorsArray = [];
@@ -104,10 +105,6 @@ function isNumberPrime(randomNumber) {
             }
         }
     }
-
-    // if (factorsArray.length === 1) {
-    //factorsArray.push(true);
-    //}
 
     return factorsArray;
 }
@@ -147,7 +144,9 @@ function calculateCorrectAnswer() {
     else if (operator === "-") {
         return [operand1 - operand2, "subtract"];
     }
-
+    else if (operator === "/") {
+        return [operand1 / operand2, "division"];
+    }
     else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
