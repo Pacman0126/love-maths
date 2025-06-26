@@ -52,11 +52,11 @@ function runGame(gameType) {
             num1 = factors[1];
             num2 = endResult / num1;
         } else {
-            let randomIndex = Math.round(Math.random() * factors.length - 1);
+            let randomIndex = Math.round(Math.random() * factors.length - 0) + 1;
             num1 = factors[randomIndex];
             num2 = endResult / num1;
             let randomOperands = [num1, num2];
-            randomIndex = Math.round(Math.random() * randomOperands.length - 1);
+            randomIndex = Math.round(Math.random() ) + 0;
             num = randomOperands[randomIndex];
         }
 
