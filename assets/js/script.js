@@ -82,7 +82,7 @@ function runGame(gameType) {
 
 }
 /**
- * Takes a random number between 1 and 25 and runs a numerical test for primes 
+ * Takes a random number between 1 and 225 and runs a numerical test for primes 
  * called 'Sieve of Eratosthenes'. Runs a loop from 2 to sqrt of random number.
  * The modulo of each is checked for a remainder of 0. If modulo = 0, adds it to
  * an array. The first element of array in set to true/false accordingly. The array
